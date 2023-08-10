@@ -1,12 +1,12 @@
 import React from "react";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string;
 }
 
-function Button({ children }: ButtonProps) {
+function Button({ children, ...props }: ButtonProps) {
 	return (
-		<button className="bg-blue-500 text-white py-1 px-2 rounded-md" type="submit">
+		<button {...props} className="disabled:opacity-50 bg-blue-500 text-white py-1 px-2 rounded-md" type="submit">
 			{children}
 		</button>
 	);

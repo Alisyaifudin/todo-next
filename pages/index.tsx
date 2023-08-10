@@ -1,35 +1,29 @@
 import type { NextPage } from "next";
 import Add from "../components/Add";
 import TodoList from "../components/TodoList";
-import Skeleton from "../components/Skeleton";
-import Todo from "../components/Todo";
+import { createContext, useState } from "react";
 
-const tasks = [
-	{ id: 1, task: "Task 1", completed: false },
-	{ id: 2, task: "Task 2", completed: false },
-	{ id: 3, task: "Task 3", completed: false },
-];
+export const TagContext = createContext({
+	tag: "haha",
+	setTag: (value: string) => {},
+});
 
-type Task = {
-	id: number;
-	task: string;
-	completed: boolean;
-};
-
-// const tasks: Task[] = [];
+const TagProvider = TagContext.Provider;
 
 const Home: NextPage = () => {
+	const [tag, setTag] = useState("haha");
+
 	return (
 		<main className="mx-auto w-full max-w-lg p-5">
 			<section className="flex flex-col gap-1">
 				<h1 className="text-2xl font-bold text-center">Todo App</h1>
-				<Add />
-				<TodoList tasks={tasks} />
+				<TagProvider value={{ tag, setTag }}>
+					<Add />
+					<TodoList />
+				</TagProvider>
 			</section>
 		</main>
 	);
 };
-
-
 
 export default Home;
